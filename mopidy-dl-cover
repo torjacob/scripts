@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# required programs mpc jq fbi wget
+
+MPD_PORT=6600
+HTTP_PORT=6680
+
+RPC_HOST=http://localhost:$HTTP_PORT/mopidy/rpc
+TRACK_ARTWORK=/tmp/cover-art-img
+DEFAULT_ARTWORK=some-default-picture
+
+while true
+do
+    mpc -p $MPD_PORT -q || (echo "Connection Failed on port $MPD_PORT" && sleep 30 && continue)
+    if [ -n "$(mpc -p $MPD_PORT current)" ]
+    then
+        TRACK=$(curl -s -X POST -H Content-Type:application/json -d '{ "method": "core.playback.get_current_track", "jsonrpc": "2.0", "params": {}, "id": 1 }' $RPC_HOST)
+        TRACK_URI=$(echo $TRACK | jq -r '.result.uri')
+        IMAGES=$(curl -s -X POST -H Content-Type:application/json -d '{  "method": "core.library.get_images", "jsonrpc": "2.0", "params": { "uris": ["'"$TRACK_URI"'"] },  "id": 1}' $RPC_HOST)
+        IMAGE_URI=$(echo $IMAGES | jq -r 'first(.result[] | sort_by(.width) | reverse | .[].uri)')
+        if [ -n "$IMAGE_URI" ]
+        then
+            wget -O $TRACK_ARTWORK $IMAGE_URI &> /dev/null
+        fi
+    fi
+    #  echo "Waiting for next player event"
+    mpc -p $MPD_PORT -q idle player
+done
