@@ -25,7 +25,7 @@ do
         fi
     fi
     TRACK_INFO="$(mpc --format '%title% \n%artist% - %album%' current)"
-    if [ $TRACK_INFO != "" ]
+    if [ "$TRACK_INFO" != "" ]
     then
         # If you have notify-send and not dunst, change dunstify to notify-send here
         dunstify -i "$TRACK_ARTWORK"  "Now Playing" $TRACK_INFO
