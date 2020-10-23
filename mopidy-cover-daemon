@@ -24,10 +24,11 @@ do
             wget -O $TRACK_ARTWORK $IMAGE_URI &> /dev/null
         fi
     fi
-    # If you have notify-send and not dunst, change dunstify to notify-send here
-    if ["$(mpc --format '%title% \n%artist% - %album%' current)" != ""]
+    TRACK_INFO="$(mpc --format '%title% \n%artist% - %album%' current)"
+    if [ $TRACK_INFO != "" ]
     then
-        dunstify -i "$TRACK_ARTWORK"  "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
+        # If you have notify-send and not dunst, change dunstify to notify-send here
+        dunstify -i "$TRACK_ARTWORK"  "Now Playing" $TRACK_INFO
     fi
     mpc -p $MPD_PORT -q idle player
 done
