@@ -25,6 +25,9 @@ do
         fi
     fi
     # If you have notify-send and not dunst, change dunstify to notify-send here
-    dunstify -i "$TRACK_ARTWORK"  "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
+    if ["$(mpc --format '%title% \n%artist% - %album%' current)" != ""]
+    then
+        dunstify -i "$TRACK_ARTWORK"  "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
+    fi
     mpc -p $MPD_PORT -q idle player
 done
