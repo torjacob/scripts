@@ -4,11 +4,11 @@ batt='/sys/class/power_supply/BAT0/'
 status=$(cat "$batt/status")
 
 case "$status" in
-  'Full')         status='  ' ;;
-  'Discharging')  status='  ' ;;
-  'Charging')     status='  ' ;;
-  'Not charging') status='  ' ;;
-  'Unknown')      status='  ' ;;
+  'Full')         status=' ' ;;
+  'Discharging')  status=' ' ;;
+  'Charging')     status=' ' ;;
+  'Not charging') status=' ' ;;
+  'Unknown')      status=' ' ;;
 esac
 
 capacity=$(cat "$batt/capacity")
