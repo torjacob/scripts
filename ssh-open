@@ -1,0 +1,13 @@
+#!/bin/sh
+
+adresses=$(
+  sudo nmap -sS -p 22 $(
+    ip add |
+    grep 'inet 1' |
+    awk 'NR>1 { print $2 }'
+  ) |
+  grep -B 4 open |
+  awk '$1 == "Nmap" { print $5 }'
+)
+
+echo -e "IPs on local network with port 22 open:\n$adresses"
