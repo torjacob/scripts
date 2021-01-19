@@ -1,4 +1,0 @@
-#!/bin/sh
-TRACK_ARTWORK=/tmp/cover-art-img
-
-dunstify -i "$TRACK_ARTWORK"  "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"

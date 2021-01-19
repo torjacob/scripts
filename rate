@@ -1,0 +1,4 @@
+#!/bin/sh
+
+site='rate.sx/'
+curl -s $site$1
