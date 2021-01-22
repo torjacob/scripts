@@ -28,7 +28,7 @@ do
     if [ "$TRACK_INFO" != "" ]
     then
         # If you have notify-send and not dunst, change dunstify to notify-send here
-        dunstify -t 300 -i "$TRACK_ARTWORK"  "Now Playing" "$TRACK_INFO"
+        dunstify -t 3000 -i "$TRACK_ARTWORK"  "Now Playing" "$TRACK_INFO"
     fi
     mpc -p $MPD_PORT -q idle player
 done
