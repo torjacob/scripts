@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # REQUIRED PROGRAMS
 # mpc, jq, fbi, wget, dunst, dunstify or notify-send

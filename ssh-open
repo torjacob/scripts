@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 port="${1:-22}"
 
@@ -12,4 +12,4 @@ adresses=$(
   awk '$1 == "Nmap" { print $5 }'
 )
 
-echo "IPs on local network with port $port open:\n$adresses"
+echo -e "IPs on local network with port $port open:\n$adresses"
